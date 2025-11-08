@@ -11,8 +11,8 @@ import (
 	"os"
 	"strconv"
 
+	v1 "github.com/stolos-cloud/stolos-k8s-template/templates/backend/pkg/v1"
 	stolos_yoke "github.com/stolos-cloud/stolos/yoke-base/pkg/stolos-yoke"
-	v1 "github.com/stolos-k8s-template/templates/backend/pkg/v1"
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
