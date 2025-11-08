@@ -1,15 +1,15 @@
 name: Replace Template References
 
-# Trigger only on repository creation via template
 on:
-  create:
-    # Only trigger on new branches created from the default branch of a template
+  push:
     branches: 
       - main
       - master
 
 jobs:
   replace-template:
+    name: Replace Template References
+    if: github.repository != 'stolos-cloud/stolos-k8s-template'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,6 +23,9 @@ jobs:
           echo "Replacing all instances of 'stolos-cloud/stolos-k8s-template' with '$REPO_NAME'"
           # Find all files and replace
           find . -type f ! -path '*/.*' ! -name '.*' -print0 | xargs -0 sed -i "s|stolos-cloud/stolos-k8s-template|$REPO_NAME|g"
+
+      - name: Delete init workflow
+        run: rm .github/workflows/init-repo-template.yml
 
       - name: Commit changes
         run: |
