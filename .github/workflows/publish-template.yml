@@ -45,7 +45,7 @@ jobs:
       - name: Run go run in changed subfolders
         if: steps.changes.outputs.changed != ''
         run: |
-          BASE_DIR="your-folder"
+          BASE_DIR="templates"
           for folder in ${CHANGED}; do
             # Build flight 
             echo "Building flight in ${BASE_DIR}/${folder}..."
