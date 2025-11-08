@@ -7,12 +7,8 @@ metadata:
     argocd.argoproj.io/sync-wave: "0"
 spec:
   source:
-    path: .
+    path: system/argoapps
     targetRevision: HEAD
-    directory:
-      recurse: true
-      include: "{*.argoapp.yaml,*.argoapp.yml}"
-      exclude: "TEMPLATE/*"
   syncPolicy:
         automated:
           selfHeal: true
