@@ -22,7 +22,7 @@ jobs:
         run: |
           echo "Replacing all instances of 'stolos-cloud/stolos-k8s-template' with '$REPO_NAME'"
           # Find all files and replace
-          grep -rl 'stolos-cloud/stolos-k8s-template' . | xargs sed -i "s|stolos-cloud/stolos-k8s-template|$REPO_NAME|g"
+          find . -type f ! -path '*/.*' ! -name '.*' -print0 | xargs -0 sed -i "s|stolos-cloud/stolos-k8s-template|$REPO_NAME|g"
 
       - name: Commit changes
         run: |
