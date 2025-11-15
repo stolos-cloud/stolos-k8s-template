@@ -27,7 +27,7 @@ func main() {
 		NamePlural:   "backends",
 		NameSingular: "backend",
 		Kind:         "Backend",
-		Version:      "v1apha1",
+		Version:      "v1alpha1",
 		DisplayName:  "Backend API service",
 	}
 

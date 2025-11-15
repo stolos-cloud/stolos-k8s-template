@@ -22,8 +22,6 @@ jobs:
         with:
           go-version: '1.22'
 
-      - uses: oras-project/setup-oras@v1.2.4
-
       - name: Determine changed subfolders
         id: changes
         run: |
@@ -48,7 +46,9 @@ jobs:
         run: |
           BASE_DIR="templates"
 
-          echo "${{ secrets.GITHUB_TOKEN }}" | oras login ghcr.io -u "${{ github.repository_owner }}" --password-stdin
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.repository_owner }}" --password-stdin
+          curl -L -o - 'https://github.com/yokecd/yoke/releases/download/latest/yoke_latest_darwin_arm64.gz' | gunzip  > yoke && \
+          chmod +x yoke
           
           for folder in ${CHANGED}; do
             # Build flight 
@@ -62,12 +62,11 @@ jobs:
             IMAGE=$(echo "$MODULE:$GITHUB_SHA" | sed -E 's|^[^/]+/(.*)|ghcr.io/\1|')
 
             echo "Pushing ${IMAGE} to GHCR..."
-            oras push "${IMAGE}" \
-              flight.wasm:application/vnd.module.wasm.content.layer.v1+wasm
+            ./yoke stow flight.wasm "oci://${IMAGE}"
 
             # Generate airway.yml
             echo "Generating airway.yml for ${IMAGE}..."
-             go run -tags airway ./cmd/main/ -flight-url "$IMAGE" | yq -P > airway.yml
+             go run -tags airway ./cmd/main/ -flight-url "oci://$IMAGE" | yq -P > airway.yml
             git add airway.yml || true
             cd -
           done
