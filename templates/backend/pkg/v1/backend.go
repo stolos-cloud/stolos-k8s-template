@@ -45,9 +45,6 @@ func (backend *Backend) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, (*BackendAlt)(backend)); err != nil {
 		return err
 	}
-	if backend.APIVersion != APIVersion {
-		return fmt.Errorf("unexpected api version: expected %s but got %s", APIVersion, backend.APIVersion)
-	}
 	if backend.Kind != KindBackend {
 		return fmt.Errorf("unexpected kind: expected %s but got %s", KindBackend, backend.Kind)
 	}
