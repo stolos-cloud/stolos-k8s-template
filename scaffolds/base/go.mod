@@ -1,4 +1,4 @@
-module github.com/stolos-k8s-template/scaffolds/base
+module github.com/stolos-cloud/stolos-k8s-template/scaffolds/base
 
 go 1.25.0
 
