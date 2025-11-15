@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"encoding/json"
 	"io"
 	"os"
@@ -12,32 +13,40 @@ import (
 	"github.com/yokecd/yoke/pkg/flight"
 )
 
+//go:embed "AirwayInputs.yml"
+var airwayInputsYml []byte
+
+type airwayInputsManifest struct {
+	Spec stolos_yoke.AirwayInputs `json:"spec"`
+}
+
 func main() {
-	// TODO: Change all these parameters
-	airway := stolos_yoke.AirwayInputs{
-		NamePlural:   "base",
-		NameSingular: "bases",
-		Kind:         "Base",
-		Version:      "v1apha1",
-		DisplayName:  "Base Scaffold (Change me!)",
+	jsonBytes, err := yaml.ToJSON(airwayInputsYml)
+	if err != nil {
+		panic(err)
 	}
+
+	var manifest airwayInputsManifest
+	if err := json.Unmarshal(jsonBytes, &manifest); err != nil {
+		panic(err)
+	}
+	airway := manifest.Spec
 
 	stolos_yoke.Run[Base](airway, run)
 }
 
 func run() ([]byte, error) {
-	// When this flight is invoked, the atc will pass the JSON representation of the Base instance to this program via standard input.
-	// We can use the yaml to json decoder so that we can pass yaml definitions manually when testing for convenience.
-	var base Base
+	var base Base // Yoke will pass your Custom Resource instance here via stdin.
 	if err := yaml.NewYAMLToJSONDecoder(os.Stdin).Decode(&base); err != nil && err != io.EOF {
 		return nil, err
 	}
 
+	// Validation step (Customize)
 	if err := validateSpec(&base); err != nil && err != io.EOF {
 		return nil, err
 	}
 
-	// Create the k8s resources
+	// Create the k8s resources for your application.
 	return json.Marshal([]flight.Resource{
 		createResources(base),
 	})
