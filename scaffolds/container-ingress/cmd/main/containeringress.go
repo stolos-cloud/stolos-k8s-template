@@ -25,7 +25,7 @@ type ContainerIngressSpec struct {
 	Replicas      int32  `json:"replicas,omitempty" Default:"1"`
 	ContainerPort int32  `json:"containerPort,omitempty" Default:"8080"`
 	Host          string `json:"host"`
-	Path          string `json:"path,omitempty" Default:"/"`
+	Path          string `json:"path,omitempty" Default:"\"/\""`
 	TLSSecretName string `json:"tlsSecretName,omitempty"`
 }
 

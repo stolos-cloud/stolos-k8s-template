@@ -35,8 +35,8 @@ type DatabaseSpec struct {
 	ClusterName     string `json:"clusterName"`
 	DatabaseName    string `json:"databaseName"`
 	Instances       int32  `json:"instances,omitempty" Default:"1"`
-	StorageSize     string `json:"storageSize,omitempty" Default:"10Gi"`
-	PostgresVersion string `json:"postgresVersion,omitempty" Default:"16"`
+	StorageSize     string `json:"storageSize,omitempty" Default:"\"10Gi\""`
+	PostgresVersion string `json:"postgresVersion,omitempty" Default:"\"16\""`
 }
 
 func (c ContainerIngressDB) MarshalJSON() ([]byte, error) {

@@ -33,16 +33,16 @@ type BackendSpec struct {
 	Replicas      int32  `json:"replicas,omitempty" Default:"2"`
 	ContainerPort int32  `json:"containerPort,omitempty" Default:"8080"`
 	Host          string `json:"host"`
-	Path          string `json:"path,omitempty" Default:"/api"`
+	Path          string `json:"path,omitempty" Default:"\"/api\""`
 	TLSSecretName string `json:"tlsSecretName,omitempty"`
 }
 
 // FrontendSpec configures the nginx deployment + ingress.
 type FrontendSpec struct {
 	Host          string `json:"host"`
-	Path          string `json:"path,omitempty" Default:"/"`
+	Path          string `json:"path,omitempty" Default:"\"/\""`
 	TLSSecretName string `json:"tlsSecretName,omitempty"`
-	Image         string `json:"image,omitempty" Default:"nginx:stable-alpine"`
+	Image         string `json:"image,omitempty" Default:"\"nginx:stable-alpine\""`
 	Replicas      int32  `json:"replicas,omitempty" Default:"1"`
 	StaticContent string `json:"staticContent,omitempty"`
 }
@@ -52,13 +52,13 @@ type DatabaseSpec struct {
 	ClusterName     string `json:"clusterName"`
 	DatabaseName    string `json:"databaseName"`
 	Instances       int32  `json:"instances,omitempty" Default:"1"`
-	StorageSize     string `json:"storageSize,omitempty" Default:"10Gi"`
-	PostgresVersion string `json:"postgresVersion,omitempty" Default:"16"`
+	StorageSize     string `json:"storageSize,omitempty" Default:"\"10Gi\""`
+	PostgresVersion string `json:"postgresVersion,omitempty" Default:"\"16\""`
 }
 
 // CacheSpec configures Redis / Valkey.
 type CacheSpec struct {
-	Flavor string `json:"flavor,omitempty" Default:"redis"`
+	Flavor string `json:"flavor,omitempty" Default:"\"redis\""`
 	Port   int32  `json:"port,omitempty" Default:"6379"`
 }
 

@@ -36,13 +36,13 @@ type DatabaseSpec struct {
 	ClusterName     string `json:"clusterName"`
 	DatabaseName    string `json:"databaseName"`
 	Instances       int32  `json:"instances,omitempty" Default:"1"`
-	StorageSize     string `json:"storageSize,omitempty" Default:"10Gi"`
-	PostgresVersion string `json:"postgresVersion,omitempty" Default:"16"`
+	StorageSize     string `json:"storageSize,omitempty" Default:"\"10Gi\""`
+	PostgresVersion string `json:"postgresVersion,omitempty" Default:"\"16\""`
 }
 
 // CacheSpec configures Redis / Valkey deployment options.
 type CacheSpec struct {
-	Flavor string `json:"flavor,omitempty" Default:"redis"`
+	Flavor string `json:"flavor,omitempty" Default:"\"redis\""`
 	Port   int32  `json:"port,omitempty" Default:"6379"`
 }
 
