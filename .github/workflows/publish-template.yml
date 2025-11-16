@@ -47,8 +47,8 @@ jobs:
           BASE_DIR="templates"
 
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.repository_owner }}" --password-stdin
-          curl -L -o - 'https://github.com/yokecd/yoke/releases/download/latest/yoke_latest_darwin_arm64.gz' | gunzip  > yoke && \
-          chmod +x yoke
+          curl -L -o - 'https://github.com/yokecd/yoke/releases/download/latest/yoke_latest_linux_amd64.gz' | gunzip  > ./yoke
+          chmod +x ./yoke
           
           for folder in ${CHANGED}; do
             # Build flight 
@@ -62,7 +62,7 @@ jobs:
             IMAGE=$(echo "$MODULE:$GITHUB_SHA" | sed -E 's|^[^/]+/(.*)|ghcr.io/\1|')
 
             echo "Pushing ${IMAGE} to GHCR..."
-            ./yoke stow flight.wasm "oci://${IMAGE}"
+            ${GITHUB_WORKSPACE}/yoke stow flight.wasm "oci://${IMAGE}"
 
             # Generate airway.yml
             echo "Generating airway.yml for ${IMAGE}..."

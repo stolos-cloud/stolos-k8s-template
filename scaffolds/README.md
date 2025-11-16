@@ -12,20 +12,23 @@ This is the basic scaffold which contains no resources except the Flight and Air
 
 ### Basic container deployment
 
-...
+Provides a Deployment-only starter that exposes a container via the Service creation logic in Go.
 
+### Container + Ingress
 
-### ...
+Adds a Kubernetes Ingress layer on top of the basic container Deployment.
 
-...
+### Container + Ingress + DB
 
-### ...
+Extends the previous scaffold with a CloudNativePG PostgreSQL cluster and helpful env vars injected into the Deployment.
 
-...
+### Container + Ingress + DB + Redis
 
-### ...
+Adds a cache tier (Redis or Valkey container + Service) alongside the app + Postgres resources.
 
-...
+### Full Stack
+
+Builds the API (container + ingress + DB + Redis) plus a static nginx frontend with its own ConfigMap, Service, and Ingress.
 
 ### ...
 
