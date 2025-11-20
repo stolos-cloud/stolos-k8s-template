@@ -11,14 +11,12 @@ spec:
       path: stolos-yoke
       targetRevision: HEAD
       directory:
-        include: 
-          - "airway.yml"
+        include: "airway.yml"
     - repoURL: 'https://github.com/stolos-cloud/stolos-k8s-template.git'
       path: system
       targetRevision: HEAD
       directory:
-        include: 
-          - "stolos-system.yml"
+        include: "stolos-system.yml"
   project: default
   destination:
     server: https://kubernetes.default.svc
