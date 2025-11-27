@@ -16,7 +16,7 @@ spec:
       path: system
       targetRevision: HEAD
       directory:
-        include: "stolos-system.yml"
+        include: "stolos-system.yaml"
   project: default
   destination:
     server: https://kubernetes.default.svc
