@@ -11,6 +11,7 @@ spec:
     path: templates
     targetRevision: HEAD
     directory:
+      recurse: true
       include: "*/airway.yml"
   project: default
   destination:
